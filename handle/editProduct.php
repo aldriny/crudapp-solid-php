@@ -1,8 +1,6 @@
 <?php
 
-require_once '../inc/connection.php';
 require_once '../app.php';
-
 
 if ($request->checkPost('submit') && $request->checkGet('id')) {
     // get old product data
@@ -55,6 +53,11 @@ if ($request->checkPost('submit') && $request->checkGet('id')) {
                     $request->redirect('../index.php');
                 }
             }
+            else{
+                $session->set('errors', $errors);
+                $request->redirect('../edit.php?id='. $id);
+            }
+
         }
     } else {
         $session->set('errors', ['product not found']);

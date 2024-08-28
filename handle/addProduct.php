@@ -1,6 +1,5 @@
 <?php
 
-require_once '../inc/connection.php';
 require_once '../app.php';
 
 if ($request->checkPost('submit')) {

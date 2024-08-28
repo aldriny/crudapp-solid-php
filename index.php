@@ -5,6 +5,7 @@ require_once 'app.php';
 ?>
 
 <div class="container my-5">
+<h2 class="form-heading mb-5">All Products</h2>
     <div class="row">
         <?php
         require_once 'inc/success.php';
