@@ -22,7 +22,6 @@ if ($request->checkPost('submit') && $request->checkGet('id')) {
         } else {
             //filter product data
             $title = $request->filter($request->post('title')) ?: $product['title'];
-            echo $product['title'];
             $price = $request->filter($request->post('price')) ?: $product['price'];
             $description = $request->filter($request->post('description')) ?: $product['description'];
             $image = $request->file('image');
@@ -36,12 +35,13 @@ if ($request->checkPost('submit') && $request->checkGet('id')) {
 
             if (empty($errors)) {
                 if ($image['error'] !== UPLOAD_ERR_OK) {
-                    echo ($product['image']);
                     $imageName = $product['image'];
                 } else {
                     $validate->validator('image', $image, ['Image']);
                     $errors = $validate->getError();
                     if (empty($errors)) {
+                        $oldImage = $product['image'];
+                        $oldImage = $imageUpload->delete($oldImage);
                         $imageName = $imageUpload->upload($image);
                     }
                 }

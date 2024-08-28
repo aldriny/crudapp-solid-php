@@ -2,28 +2,23 @@
 
 namespace OnlineShop\Classes\Queries;
 
+use OnlineShop\Classes\Factory;
+
 require_once 'Select.php';
 require_once 'Insert.php';
 require_once 'Update.php';
 require_once 'Delete.php';
 
-
-
-class Query{
-    private $errors = [];
-    public function getQuery($operationName, $columns, $table, $values = null, $key = null) {
-        $query = "OnlineShop\Classes\Queries\\" . $operationName;
-        $obj = new $query;
-
-        $result = $obj->query($columns, $table, $values, $key);
-
-        if($result == false) {
-            return $this->errors[] = $result;
+class Query
+{
+    public function getQuery($operation,$columns, $table, $values = null, $key = null)
+    {
+        $queryHandler = Factory::create('Queries',$operation);
+        if (!$queryHandler instanceof QueryInterface){
+            throw new \Exception("Invalid query handler.");
         }
-        return $result;
-    }
-    public function getErrors() {
-        return $this->errors;
+            $result = $queryHandler->query($columns, $table, $values, $key);
+
+            return $result === false ? false : $result;
     }
 }
-

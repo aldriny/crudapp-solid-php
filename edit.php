@@ -13,17 +13,19 @@ require_once 'app.php';
 
             if ($request->checkGet('id')) {
                 $id = $request->filter($request->get('id'));
-                $validate->validator('id', $id, ['Required','Number']);
-                $errors = $validate->getError();    
-                if(empty($errors)){
-                $product = $query->getQuery('Select', '*', 'products', $id, 'id');      
-                if(!$product){
-                    $session->set('errors', ['product not found']);
-                    $request->redirect('index.php');
-                }
-                $product = $product->fetch(PDO::FETCH_ASSOC);
-                }
-                else{
+                $validate->validator('id', $id, ['Required', 'Number']);
+                $errors = $validate->getError();
+                if (empty($errors)) {
+
+
+                    $product = $query->getQuery('Select','*', 'products', $id, 'id');
+                    
+                    if (!$product) {
+                        $session->set('errors', ['product not found']);
+                        $request->redirect('index.php');
+                    }
+                    $product = $product->fetch(PDO::FETCH_ASSOC);
+                } else {
                     $session->set('errors', ['product not found']);
                     $request->redirect('index.php');
                 }
@@ -55,7 +57,7 @@ require_once 'app.php';
                     <img src="assets/images/<?php echo $product['image'] ?>" class="card-img-top">
                 </div>
 
-                <center><button on type="submit" class="btn btn-primary" name="submit">Add</button></center>
+                <center><button on type="submit" class="btn btn-primary" name="submit">Edit Product</button></center>
             </form>
         </div>
     </div>

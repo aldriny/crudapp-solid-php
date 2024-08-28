@@ -33,7 +33,7 @@ require_once 'app.php';
                     <input class="form-control" type="file" id="formFile" name="image">
                 </div>
 
-                <center><button on type="submit" class="btn btn-primary" name="submit">Add</button></center>
+                <center><button on type="submit" class="btn btn-primary" name="submit">Add Product</button></center>
             </form>
         </div>
     </div>
